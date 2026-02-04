@@ -15,6 +15,15 @@ class ToDoList():
         path = 'manageTask/tasks_folder'
         tasks = os.listdir(path)
         return tasks
+    
+    def Remove(self, frame, btn, s_btn):
+        row = btn.grid_info()['row']
+        name = frame.grid_slaves(row=row, column=0)
+        name = name[0].cget('text')
+        btn.configure(text='removed', state='disabled')
+        s_btn.configure(state='disabled')
+        os.system(f'del manageTask\\tasks_folder\{name}')
+
 
 
 
