@@ -84,7 +84,8 @@ class Ui(ctk.CTk):
             command=lambda i=ctr : dirlist.Remove(self.display, remove_vars[f'remove_btn{i}'], show_vars[f'show_task{i}']))
             remove_vars[f'remove_btn{ctr}'].grid(row=ctr, column=1)
 
-            show_vars[f'show_task{ctr}'] = ctk.CTkButton(self.display, text='show', width=80)
+            show_vars[f'show_task{ctr}'] = ctk.CTkButton(self.display, text='show', width=80,
+            command=lambda i=ctr : dirlist.showTask(self.display, show_vars[f'show_task{i}']))
             show_vars[f'show_task{ctr}'].grid(row=ctr, column=2)
 
             ctr += 1
