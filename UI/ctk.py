@@ -26,6 +26,13 @@ class Ui(ctk.CTk):
         back.configure(state='disabled')
         for widget in self.display.winfo_children():
             widget.destroy()
+    
+    def Refresh(self):
+        for widget in self.display.winfo_children():
+            widget.destroy()
+        self.ShowTasks()
+
+
 
     def AddTask(self):
         newTask = tdl()
@@ -67,18 +74,24 @@ class Ui(ctk.CTk):
         self.display.grid_columnconfigure(2, weight=1)
 
         ctr = 0
+        remove_vars = {}
+        show_vars = {}
         for task in tasks:
             task_label = ctk.CTkLabel(self.display, text=task, width=80)
             task_label.grid(row=ctr, column=0)
 
-            remove_btn = ctk.CTkButton(self.display, text='remove', width=80)
-            remove_btn.grid(row=ctr, column=1)
+            remove_vars[f'remove_btn{ctr}'] = ctk.CTkButton(self.display, text='remove', width=80,
+            command=lambda i=ctr : dirlist.Remove(self.display, remove_vars[f'remove_btn{i}'], show_vars[f'show_task{i}']))
+            remove_vars[f'remove_btn{ctr}'].grid(row=ctr, column=1)
 
-            show_task = ctk.CTkButton(self.display, text='show', width=80)
-            show_task.grid(row=ctr, column=2)
+            show_vars[f'show_task{ctr}'] = ctk.CTkButton(self.display, text='show', width=80)
+            show_vars[f'show_task{ctr}'].grid(row=ctr, column=2)
 
             ctr += 1
 
         back_btn = ctk.CTkButton(self.display, text='back', command=lambda:self.Back(back_btn))
         back_btn.grid(row=ctr,column=0, columnspan=3, pady=15)
+
+        refresh_btn = ctk.CTkButton(self.display, text='refresh🔄️', command=self.Refresh)
+        refresh_btn.grid(row=ctr+1, column=0, columnspan=3)
 
