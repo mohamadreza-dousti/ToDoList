@@ -11,11 +11,11 @@ class Task():
     def CreateTask(self):
         file_name = f'{self.name}.txt'
         with open(f'manageTask/tasks_folder/{file_name}', "a+") as file:
-            file.write(f'priority : {self.priority}\n')
             file.write(self.description)
         file_name_state = f'manageTask/status_setting/{self.name}.json'
         data = {
-            "status" : self.check_var.get()
+            "status" : self.check_var.get(),
+            "priority":self.priority
         }
         with open(file_name_state, "w") as f:
             json.dump(data, f)
