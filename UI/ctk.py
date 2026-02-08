@@ -72,10 +72,14 @@ class Ui(ctk.CTk):
         self.display.grid_columnconfigure(0, weight=1)
         self.display.grid_columnconfigure(1, weight=1)
         self.display.grid_columnconfigure(2, weight=1)
+        self.display.grid_columnconfigure(3, weight=1)
+        self.display.grid_columnconfigure(4, weight=1)
 
         ctr = 0
         remove_vars = {}
         show_vars = {}
+        status_vars = {}
+        check_var = {}
         for task in tasks:
             task_label = ctk.CTkLabel(self.display, text=task, width=80)
             task_label.grid(row=ctr, column=0)
@@ -88,11 +92,17 @@ class Ui(ctk.CTk):
             command=lambda i=ctr : dirlist.showTask(self.display, show_vars[f'show_task{i}']))
             show_vars[f'show_task{ctr}'].grid(row=ctr, column=2)
 
+            check_var[f'var{ctr}'] = ctk.StringVar(value='No')
+            status_vars[f'status{ctr}'] = ctk.CTkCheckBox(self.display, text='DONE', variable=check_var[f'var{ctr}'], offvalue='No', onvalue='Yes',
+                                                          command=lambda i=ctr : dirlist.set(status_vars[f'status{i}'], self.display))
+            status_vars[f'status{ctr}'].grid(row=ctr, column=3, padx=2)
+            dirlist.status(status_vars[f'status{ctr}'], self.display, check_var[f'var{ctr}'])
+
             ctr += 1
 
         back_btn = ctk.CTkButton(self.display, text='back', command=lambda:self.Back(back_btn))
-        back_btn.grid(row=ctr,column=0, columnspan=3, pady=15)
+        back_btn.grid(row=ctr,column=0, columnspan=2, pady=15)
 
         refresh_btn = ctk.CTkButton(self.display, text='refresh🔄️', command=self.Refresh)
-        refresh_btn.grid(row=ctr+1, column=0, columnspan=3)
+        refresh_btn.grid(row=ctr, column=3, columnspan=2)
 
