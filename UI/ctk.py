@@ -98,7 +98,7 @@ class Ui(ctk.CTk):
 
             check_var[f'var{ctr}'] = ctk.StringVar(value='No')
             status_vars[f'status{ctr}'] = ctk.CTkCheckBox(self.display, text='DONE', variable=check_var[f'var{ctr}'], offvalue='No', onvalue='Yes',
-                                                          command=lambda i=ctr : dirlist.set(status_vars[f'status{i}'], self.display))
+                                                          command=lambda i=ctr : dirlist.set(status_vars[f'status{i}'], priority_vars[f'priority{i}'], self.display))
             status_vars[f'status{ctr}'].grid(row=ctr, column=4, padx=2)
             dirlist.status(status_vars[f'status{ctr}'], self.display, check_var[f'var{ctr}'])
 
