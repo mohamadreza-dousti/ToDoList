@@ -4,12 +4,11 @@ import json
 import customtkinter as ctk
 
 class ToDoList():
-    priority = None
     def AddTask(self, name, description, priority, save_btn):
-        title = name.get()
-        text = description.get(1.0, 'end')
-        priority = priority.get()
-        self.task = Task(title, text, priority)
+        self.title = name.get()
+        self.text = description.get(1.0, 'end')
+        self.priority = priority.get()
+        self.task = Task(self.title, self.text, self.priority)
         self.task.CreateTask()
         save_btn.configure(state='disabled', fg_color='green', text='saved!')
 
@@ -47,17 +46,26 @@ class ToDoList():
                 data = json.load(f)
             var.set(data['status'])
     
-    def set(self, var, frame):
-        row = var.grid_info()['row']
+    def set(self, s_var, p_var, frame):
+        row = s_var.grid_info()['row']
         name = frame.grid_slaves(row=row, column=0)
         name = name[0].cget('text')
-        self.set_var(var, name[0:-4])
+        self.set_var(s_var, p_var, name[0:-4])
 
-    def set_var(self, var, name):
+    def set_var(self, s_var, p_var, name):
         file_name = f'manageTask/status_setting/{name}.json'
+        p = p_var.cget('fg_color')
+        if p == 'purple':
+            p = 'very high'
+        elif p == 'red':
+            p = 'high'
+        elif p == 'yellow':
+            p = 'mid'
+        else:
+            p = 'green'
         data = {
-            "status" : var.get(),
-            "priority" : ToDoList.priority
+            "status" : s_var.get(),
+            "priority" : p
         }
         with open(file_name, "w") as f:
             json.dump(data, f)
@@ -70,8 +78,8 @@ class ToDoList():
         with open(file_name, "r") as f:
             data = json.load(f)
 
-        ToDoList.priority = data['priority']
-        self.load_priority(ToDoList.priority, ctr, frame, priority_vars)
+        self.priority = data['priority']
+        self.load_priority(self.priority, ctr, frame, priority_vars)
 
     def load_priority(self, priority, ctr, frame, priority_vars):
         if priority == 'very high':
