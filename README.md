@@ -21,15 +21,12 @@ A simple app for manage collection of tasks
 
 -----------------------------
  ## How To Run:
-    1.Clone the repository
-    '''Bash
-    '''git clone https://github.com/mohamadreza-dousti/ToDoList.git'''
-    2.Install requirements:
-    '''Bash
-    '''pip install -r requirements.txt'''
-    3.Run the application:
-    '''Bash
-    '''python main.py'''
+ ### Clone the repository
+    git clone https://github.com/mohamadreza-dousti/ToDoList.git
+ ### Install requirements:
+    pip install -r requirements.txt
+ ### Run the application:
+    python main.py
 
 -----------------------------
  ## Project Struture:
