@@ -17,6 +17,7 @@ technologies:
     .Custom Tkinter
     .File Input Output(.txt file & .json file)
     .OOP
+    .OS
 
 -----------------------------
   How To Run:
